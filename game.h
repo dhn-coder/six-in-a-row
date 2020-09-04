@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QMouseEvent>
 
 class game : public QWidget
 {
@@ -20,18 +23,21 @@ public slots:
 private:
     QPushButton b;
 
-    int gridW;  //棋盘水平方向一个格子宽度
-    int gridH;  //棋盘水平方向一个格子高度
-    int startX; //棋盘起点x坐标
-    int startY; //棋盘起点y坐标
+    int gridW;
+    int gridH;
 
-    int chessX,chessY;  //棋盘下标
+    int a[20][20];
+    int isWin(int x, int y);
+    int f1(int x, int y);
+    int f2(int x, int y);
+    int f3(int x, int y);
+    int f4(int x, int y);
+    int player;
+
 
 protected:
-    //重写绘图事件
     void paintEvent(QPaintEvent *);
-    //重写鼠标按下事件
-    //void mousePressEvent(QMouseEvent *e);
+    void mousePressEvent(QMouseEvent *);
 
 };
 

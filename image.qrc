@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>背景.jpg</file>
         <file>六子棋.png</file>
         <file>棋盘.png</file>
     </qresource>

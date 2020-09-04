@@ -28,7 +28,6 @@ private:
     game w;
 
 protected:
-    //重写绘图事件
     void paintEvent(QPaintEvent *);
 
 };

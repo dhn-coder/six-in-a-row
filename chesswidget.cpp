@@ -46,10 +46,3 @@ void chessWidget::paintEvent(QPaintEvent *)
     QPainter q(this);
     q.drawPixmap(0, 0, width(), height(), QPixmap(":/六子棋.png"));
 }
-
-
-
-
-
-
-
