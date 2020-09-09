@@ -4,24 +4,38 @@
 #include <QMouseEvent>
 #include <QBrush>
 #include <QMessageBox>
-//#include <QPushButton>
+#include <QPushButton>
 
 
 game::game(QWidget *parent) : QWidget(parent)
 {
-    resize(700,700);
+    resize(800,750);
     this->setWindowTitle("游戏界面");
     b.setParent(this);
     b.setText("返回");
     b.move(width()/22,0);
-
     connect(&b, &QPushButton::released, this, &game::sendSlot1);
-
     gridW = width()/24;
     gridH = height()/22;
-
     memset(a, 0, sizeof(a));
     player=0;
+
+    c.setParent(this);
+    c.setText("悔棋");
+    c.setGeometry(695, 680, 70, 30);
+    connect(&c, &QPushButton::released, this, &game::Regret);
+
+    d.setParent(this);
+    d.setText("暂停");
+    d.setGeometry(695, 600, 70, 30);
+    connect(&d, &QPushButton::released, this, &game::Continue);
+
+    Hei.setParent(this);
+    Hei.setText("黑棋：");
+    Hei.setGeometry(695, 30, 70, 30);
+    Bai.setParent(this);
+    Bai.setText("白棋：");
+    Bai.setGeometry(695, 300, 70, 30);
 }
 
 void game::sendSlot1()
@@ -78,6 +92,8 @@ void game::mousePressEvent(QMouseEvent *e)
         {
             a[x][y] = player++ % 2 + 1;
         }
+        x0 = x;
+        y0 = y;
         if(isWin(x,y))
         {
             if(a[x][y] == 1)
@@ -93,6 +109,26 @@ void game::mousePressEvent(QMouseEvent *e)
         }
     }
     update();
+}
+
+void game::Regret()
+{
+    a[x0][y0] = 0;
+    update();
+    player++;
+}
+
+void game::Continue()
+{
+    int ret = QMessageBox::question(this, "暂停", "Continue??", QMessageBox::Yes|QMessageBox::No);
+    switch (ret)
+    {
+    case QMessageBox::No:
+        memset(a, 0, sizeof(a));
+        break;
+    default:
+        break;
+    }
 }
 
 int game::isWin(int x, int y)
